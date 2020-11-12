@@ -1,0 +1,45 @@
+<DOCTYPE html>
+<html>
+<head> 
+      <title>Car Collection App</title>
+      <style>
+             body{
+                 background-image: url('https://tse1.mm.bing.net/th?id=OIP.61PZROA4kqo8Qj2sXwq2aQHaE8&pid=Api&P=0&w=251&h=168');
+                 background-size:1500px 800px;
+                 text-align:center;
+             }
+             label{
+                 font-weight: bold;
+                 display: block;
+                 width: 120px;
+                 float: left;
+            }
+            form{
+                 background-color: lightblue;
+                 width:500px;
+                 text-align:center;
+                 border:solid;
+                 margin:auto;
+                 padding:10px;
+                 display:table;
+            }
+      </style>
+</head>
+<body>
+     <h1>Welcome to Car Details Collection App</h1>
+     
+     <form action="/sign-up" method="POST">
+        <p> Sign Up </p>
+        <label for="username">UserName</label>
+        <input type="Text" id="username" name="username" required><br><br>
+        <label for="password">Password</label>
+        <input type="Password" id="password" name="password" required><br><br>
+        <label for="fullName">Full Name</label>
+        <input type="Text" name="fullName" id="fullName" required><br><br>
+        <button>Submit</button>
+     </form><br><br>
+     <div>
+        <p> Already have an account? <a href="/login">Login</a></p>
+    </div>
+</body>
+</html>

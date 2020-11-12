@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Car Collection App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+      body{
+          background-image: url('https://tse1.mm.bing.net/th?id=OIP.h1Y4s5IDvfz_uA7Z2FCoygHaFj&pid=Api&rs=1&c=1&qlt=95&w=146&h=110');
+          background-size:1500px 1000px;
+          text-align:center;
+      }
+      label{
+          font-weight: bold;
+          display: block;
+          width: 120px;
+          float: left;
+      }
+      form{
+          background-color: steelblue;
+          width:500px;
+          text-align:center;
+          border:solid;
+          margin:auto;
+          padding:10px;
+          display:table;
+      }
+</style>
+</head>
+<body>
+      <h1> Click the link below to view the details for different cars </h1>
+      <div>
+      <button><a href="/view-car-info"> View Different Car Details </a></button>
+      </div><br><br>
+      <h2> Add New Car </h2>
+      <form action="/car-details"  method="POST">
+          <label for="name">Name</label>
+          <input type="Text" id="name" name="name" required><br><br>
+          <label for="plateNo">Plate Number</label>
+          <input type="Number" id="plateNo" name="plateNo" required><br><br>
+          <label for="colour">Colour</label>
+          <input type="String" id="colour" name="colour" required><br><br>
+          <label for="model">Model</label>
+          <input type="String" id="model" name="model" required><br><br>
+          <button> Submit </button>
+      </form><br><br>
+      <div>
+        <button><a href="/">Log Out</a></button>
+      </div>
+</body>
+</html>

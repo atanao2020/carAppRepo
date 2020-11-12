@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Car Details</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+      body{
+          background-image: url('https://tse3.mm.bing.net/th?id=OIP.UvhLfGAcfRkDWUpXJotRrgHaFj&pid=Api&P=0&w=221&h=167');
+          background-size:1500px 800px;
+          text-align:center;
+          color:green;
+      }
+      label{
+          display: block;
+          width: 120px;
+          float: left;
+      }
+      form{
+          margin:auto;
+          display:table;
+      }
+</style>
+</head>
+<body>
+    <div>
+        <div>
+            <form action="/update-car-record:id <% profile.id %> " method="POST">
+                <div>
+                    <label for="name">Car Name</label>
+                    <input type="text" id="name" name="name" value="<%= profile.name %>"> 
+                </div>
+                <div>
+                    <label for="plateNo">Plate Number</label>
+                    <input id="plateNo" name="plateNo" value=" <%= profile.plateNo %> ">
+                </div>
+                <div>
+                    <label for="colour">Colour</label>
+                    <input type="text" id="colour" name="colour" value=" <%= profile.colour %> ">
+                </div>
+                <div>
+                    <label for="model">Model</label>
+                    <input type="text" id="model" name="model" value=" <%= profile.model %> ">
+                </div><br><br>
+                <div>
+                    <button type="submit">Save Changes</button><br><br>
+                </div>
+                <div>
+                    <button class="btn btn-dismiss"><a href="/view-car-info">Exit</a> </button></a>
+                </div>
+            </form>  
+            <hr>
+        </div>
+    </div>
+</body>
+</html>

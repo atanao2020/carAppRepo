@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Car Collection App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+      body{
+          background-image: url('https://tse3.mm.bing.net/th?id=OIP.UvhLfGAcfRkDWUpXJotRrgHaFj&pid=Api&P=0&w=221&h=167');
+          background-size:1500px 800px;
+          text-align:center;
+          color:black;
+      }
+      h1{
+          color:green;
+      }
+</style>
+</head>
+<body>
+    <h1> List of Different Cars Details</h1>
+    <center><table class="table" cellpadding ="5" style ="background-color: gray;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Plate Number</th>
+                    <th>Colour</th>
+                    <th>Model</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% profile.forEach(car => { %>
+                <tr>
+                    <td><%= car.name%></td>
+                    <td><%= car.plateNo%></td>
+                    <td><%= car.colour%></td>
+                    <td><%= car.model%></td>
+                    <td><form action="/delete-car-record:id <% profile._id %>" method="DELETE">
+                            <button type="submit">Delete</button>
+                         </form>
+                    </td>
+                    <td><button><a href="/update-car-record">Update</a> </button></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table></center><br><br>
+    <div>
+        <button><a href="/"> Log Out </a></button>
+    </div>
+</body>
+</html>
