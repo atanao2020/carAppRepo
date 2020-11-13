@@ -1,8 +1,10 @@
+<DOCTYPE html>
 <html>
 <head>
 <title>Car Collection App</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <style>
       body{
           background-image: url('https://tse1.mm.bing.net/th?id=OIP.h1Y4s5IDvfz_uA7Z2FCoygHaFj&pid=Api&rs=1&c=1&qlt=95&w=146&h=110');
@@ -27,12 +29,12 @@
 </style>
 </head>
 <body>
-      <h1> Click the link below to view the details for different cars </h1>
+      <h1> Click the link below to view the details about different cars </h1>
       <div>
       <button><a href="/view-car-info"> View Different Car Details </a></button>
       </div><br><br>
       <h2> Add New Car </h2>
-      <form action="/car-details"  method="POST">
+      <form action="/add-car-details"  method="POST">
           <label for="name">Name</label>
           <input type="Text" id="name" name="name" required><br><br>
           <label for="plateNo">Plate Number</label>

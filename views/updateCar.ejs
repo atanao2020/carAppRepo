@@ -3,6 +3,7 @@
 <title>Car Details</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <style>
       body{
           background-image: url('https://tse3.mm.bing.net/th?id=OIP.UvhLfGAcfRkDWUpXJotRrgHaFj&pid=Api&P=0&w=221&h=167');
@@ -16,40 +17,28 @@
           float: left;
       }
       form{
+          display:block;
           margin:auto;
           display:table;
+          background-color:lightblue;
       }
 </style>
 </head>
 <body>
+    <h1>Edit <%=car.name%> Details</h1><br>
+    <form action="/update-car-record<%=car._id%>/edit?_method=PUT" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="car[name]" value="<%=car.name%>"><br><br>
+        <label for="plateNo">Plate Number</label>
+        <input type="number" id="plateNo" name="car[plateNo]" value="<%=car.plateNo%>"><br><br>
+        <label for="colour">Colour</label>
+        <input type="text" id="colour" name="car[colour]" value="<%=car.colour%>"><br><br>
+        <label for="model">Model</label>
+        <input type="text" id="model" name="car[model]" value="<%=car.model%>"><br><br>
+        <input type="submit">
+    </form><br><br>
     <div>
-        <div>
-            <form action="/update-car-record:id <% profile.id %> " method="POST">
-                <div>
-                    <label for="name">Car Name</label>
-                    <input type="text" id="name" name="name" value="<%= profile.name %>"> 
-                </div>
-                <div>
-                    <label for="plateNo">Plate Number</label>
-                    <input id="plateNo" name="plateNo" value=" <%= profile.plateNo %> ">
-                </div>
-                <div>
-                    <label for="colour">Colour</label>
-                    <input type="text" id="colour" name="colour" value=" <%= profile.colour %> ">
-                </div>
-                <div>
-                    <label for="model">Model</label>
-                    <input type="text" id="model" name="model" value=" <%= profile.model %> ">
-                </div><br><br>
-                <div>
-                    <button type="submit">Save Changes</button><br><br>
-                </div>
-                <div>
-                    <button class="btn btn-dismiss"><a href="/view-car-info">Exit</a> </button></a>
-                </div>
-            </form>  
-            <hr>
-        </div>
-    </div>
+       <button><a href="/view-car-info">Exit</a></button>
+    </div> 
 </body>
 </html>

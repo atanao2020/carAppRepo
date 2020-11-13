@@ -1,12 +1,13 @@
-const express       = require('express'),
-      app           = express(),
-      bodyParser    =  require("body-parser"),
-      mongoose      = require('mongoose'),
-      passport      =  require("passport"),
-      LocalStrategy =  require("passport-local"),
-      port          = 4000,
-      User          =  require("./models/Users"),
-      carSchema    =  require("./models/carSchema")
+const express        = require('express'),
+      app            = express(),
+      bodyParser     =  require("body-parser"),
+      methodOverride = require("method-override"),
+      mongoose       = require('mongoose'),
+      passport       =  require("passport"),
+      LocalStrategy  =  require("passport-local"),
+      port           = 4000,
+      User           =  require("./models/Users"),
+      carSchema      =  require("./models/carSchema")
 
 //===========================================================Connect to database
 mongoose.connect('mongodb+srv://atanao:dontinon@cluster0.enweg.mongodb.net/MyAppDB?retryWrites=true&w=majority', 
@@ -19,10 +20,10 @@ mongoose.connect('mongodb+srv://atanao:dontinon@cluster0.enweg.mongodb.net/MyApp
    }
 )
 
-//============================================================Middle wear
-app.set("view engine","ejs")
-app.use(express.urlencoded({ extended: true }))
-app.use(bodyParser.urlencoded({ extended:true, useUnifiedTopology:true }))
+//============Middlewear
+app.set("view engine","ejs");
+app.use(bodyParser.urlencoded({ extended:true }));
+app.use(methodOverride("_method"));
 
 app.use(require("express-session")({
     secret:"Any normal Word",       //decode or encode session
@@ -78,90 +79,73 @@ app.get("/user-profile",isLoggedIn ,(req,res) =>{
     res.render("addCar")
 })
 
-app.post('/car-details', function(req, res) {
-    console.log("Car Details POST route hit")
-    console.log(req.body)
-    var carName = req.body.name
-    var carPlateNo = req.body.plateNo
-    var carColour = req.body.colour
-    var carModel = req.body.model
-    
-    carSchema.create({
-        name: carName,
-        plateNo:carPlateNo,
-        colour: carColour,
-        model: carModel
-    })
-    .then(function(car){
-        console.log('Car Details Saved')
-        console.log(car)
-        res.send(`<body style="background-color:steelblue">
-                       <center><h1> Car Details Submitted Successfully </h1><br><br>
-                       <div>
-                           <button><a href="/"> Log Out </a></button>
-                       </div>
-                       <div>
-                           <button><a href="/view-car-info"> View Car Details </a></button>
-                       </div><center>
-                  </body>`)
-    })
-    .catch(function(err){
-        console.log(err)
+//========================================================Adding a new car
+app.post("/add-car-details",(req,res)=>{
+    var name = req.body.name;
+    var plateNo = req.body.plateNo;
+    var colour = req.body.colour;
+    var model = req.body.model;
+    var newCar = {name:name,plateNo:plateNo,colour:colour,model:model};
+    carSchema.create(newCar,(err,data)=>{
+        if(err){
+            console.log(err);
+        }else {
+            console.log(data);
+            res.redirect("/view-car-info");
+        }
     })
 })
 
 //=====================================================Retrieving car details from the database
-app.get('/view-car-info', (req, res) =>{
-    carSchema.find({}, function(err, profile){
-        res.render("viewCar", { profile : profile});
-        console.log(profile)
+app.get("/view-car-info",(req, res)=>{
+    carSchema.find({},(err,cars)=>{
+        if (err) {console.log(err);
+        }else{
+            res.render("viewCar",{cars: cars});
+        }
     })
+    
 })
 
 //====================================================Deleting car records from the database
-app.get('/delete-car-record:id', (req, res) =>{
-    const id = req.params.id
-    carSchema.findOneAndDelete(id, function(err, user) {
-        if (err){
-            throw err
-        } 
-        console.log(id)
-        res.redirect('/view-car-info')
+app.delete("/delete-car-record:id",(req,res)=>{
+    carSchema.findByIdAndRemove(req.params.id,function (err){
+        if(err){
+            console.log(err);
+            res.redirect("/view-car-info");
+        }else {
+            res.redirect("/view-car-info");
+            }
     })
 })
 
 //====================================================Updating car records in the database
-app.get('/update-car-record', (req, res) =>{
-    carSchema.findOne({}, function(err, profile){
-        res.render("updateCar", { profile : profile});
+//Get EditForm
+app.get("/update-car-record:id/edit",(req,res)=>{
+    carSchema.findById(req.params.id,function (err, car){
+        if(err){
+            console.log(err);
+            res.redirect("/view-car-info");
+        }else{
+            res.render("updateCar",{car: car});
+        }
     })
 })
 
-app.post('/update-car-record:id', (req, res) =>{
-        updateRecord(req, res)
-})
-function updateRecord(req, res) {
-    carSchema.findOneAndUpdate({ "id": req.body.id },{
-        $set: {
-            "name": req.body.name,
-            "plateNo": req.body.plateNo,
-            "colour": req.body.colour,
-            "model": req.body.model
-        }
-     }, { new: true }, (err, car) => {
-        if (!err) {  
-            console.log(car);
-            console.log(req.body);
-            res.redirect('/view-car-info'); 
-        }
-        else {
+//Edit Put request
+app.put("/update-car-record:id/edit",(req, res)=>{
+    carSchema.findByIdAndUpdate(req.params.id,req.body.car,function(err,updatedata){
+        if(err){
             console.log(err);
+        }else{
+            console.log(updatedata)
+            res.redirect("/view-car-info");
         }
-     });
-    }
+    })
+})
 
 
 //=================================================Calling the port number the server is running on
 app.listen(port,()=>{
-    console.log(`Server running on port:${port}`)
+    console.log(`App running on port:${port}`)
 })
